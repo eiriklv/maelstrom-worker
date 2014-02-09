@@ -63,30 +63,34 @@ var keywords = [
     'playstation 3'
 ];
 
-// run this forever, with a limit of 2 concurrent connections/operations
-async.forever(function(callback){
-    async.eachLimit(keywords, 2, function(item, callback){
-        console.log(domain+item);
-        request(domain+item, function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                console.log(body); // Print the request body
-                callback();
+function run(){
+    // run this forever, with a limit of 2 concurrent connections/operations
+    async.forever(function(callback){
+        async.eachLimit(keywords, 2, function(item, callback){
+            console.log(domain+item);
+            request(domain+item, function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    console.log(body); // Print the request body
+                    callback();
+                }
+                else{
+                    callback(error);
+                }
+            });
+        },
+        function(err){
+            if(err){
+                callback(err);
             }
             else{
-                callback(error);
+                callback();
             }
         });
     },
     function(err){
-        if(err){
-            callback(err);
-        }
-        else{
-            callback();
-        }
+        // this function will only be called if an error occurs (no if needed)
+        console.log(util.inspect(err));
+        run();
+        return;
     });
-},
-function(err){
-    // this function will only be called if an error occurs (no if needed)
-    console.log(util.inspect(err));
-});
+}
