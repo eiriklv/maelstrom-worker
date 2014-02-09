@@ -1,7 +1,7 @@
 Maelstrom Worker
 ================
 
-Creates fake inputs to Maelstrom/The Keyword Universe via HTTP GET requests
+Creates fake inputs to Maelstrom/The Search Universe via HTTP GET requests
 
 ###Usage:
 
