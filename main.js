@@ -63,7 +63,7 @@ var keywords = [
     'playstation 3'
 ];
 
-function run(){
+(function run(){
     // run this forever, with a limit of 2 concurrent connections/operations
     async.forever(function(callback){
         async.eachLimit(keywords, 2, function(item, callback){
@@ -93,4 +93,4 @@ function run(){
         run();
         return;
     });
-}
+})();
